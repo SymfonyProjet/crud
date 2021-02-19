@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Modification de l'aliment "{{aliment.nom}}"
+{% endblock %}
+
+{% block body %}
+<div class="container w-50">
+    <h1 class="text-center my-4">
+        Modification de l'aliment "{{aliment.nom}}"
+    </h1>
+    {{form_start(form)}}
+        {{form_widget(form)}}
+        <button type="submit" class="btn btn-warning btn-md my-4">
+            <i class="fa fa-check"></i>
+            Modifier
+        </button>
+    {{form_end(form)}}
+</div>
+{% endblock %}

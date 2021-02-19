@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Admin
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center my-4">Page d'administration</h1>
+    <a class="btn btn-secondary mb-2 btn-sm" href="{{ path('admin_create') }}">Ajouter un aliment</a>
+    <table class="table">
+        <tr class="table-primary">
+            <th>Produit</th>
+            <th>Aliment</th>
+            <th>Prix</th>
+            <th>Calories</th>
+            <th>Proteines</th>
+            <th>Glucides</th>
+            <th>Lipides</th>
+            <th>Actions</th>
+        </tr>
+        {% for aliment in aliments %}
+            <tr>
+                <td><img src="{{ asset('images/aliments/'~ aliment.image) }}" alt="{{ aliment.nom }}"></td>
+                <td> <strong>{{ aliment.nom }}</strong></td>
+                <td>{{ aliment.prix }}</td>
+                <td>{{ aliment.calorie }}</td>
+                <td>{{ aliment.proteine }}</td>
+                <td>{{ aliment.glucide }}</td>
+                <td>{{ aliment.lipide }}</td>
+                <td>
+                    <a class="btn btn-info btn-sm" href="#">
+                        <i class="fas fa-eye"></i>
+                        <small>Voir</small>
+                    </a>
+                    <a class="btn btn-warning btn-sm" href="{{ path('admin_update', {id : aliment.id}) }}">
+                        <i class="fas fa-pen"></i>
+                        <small>Modifier</small>
+                    </a>
+                    {# <a class="btn btn-danger btn-sm" href="{{ path('admin_delete', {id : aliment.id}) }}">
+                        <i class="fas fa-trash"></i>
+                        <small>Supprimer</small>
+                    </a> #}
+                    <form class="d-inline-block" action="{{ path('admin_delete', {id : aliment.id}) }}" method="POST" onsubmit="return confirm('Supprimer cet aliment ?')">
+                        <button class="btn btn-danger btn-sm" type="submit">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ aliment.id) }}">
+                            <i class="fas fa-trash"></i>
+                            <small>Supprimer</small>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

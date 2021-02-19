@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Bienvenue
+			{% endblock %}
+		</title>
+		<link rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="{{ path('home') }}">La Marmite</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarColor02">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('home') }}">Aliments</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('admin_index') }}">Administration</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		{# Gestion des messages flash #}
+		{% for label, messages in app.flashes %}
+			<div class="container mt-2 w-50 alert-dismissible fade show" role="alert">
+				<div class="alert alert-{{ label }}">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+					{% for message in messages %}
+						<p>{{message | raw}}</p>
+					{% endfor %}
+				</div>
+			</div>
+		{% endfor %}
+		{% block body %}{% endblock %}
+	</body>
+</html>
